@@ -1,0 +1,23 @@
+# Eclipse
+.metadata/
+.settings/
+.project
+.classpath
+
+# Gradle
+.gradle/
+build/
+
+# Java
+*.class
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Secrets
+**/application.properties
