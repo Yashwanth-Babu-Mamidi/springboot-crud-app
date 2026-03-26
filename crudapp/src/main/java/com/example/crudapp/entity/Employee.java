@@ -29,4 +29,12 @@ public void setEmail(String email){this.email=email;}
 
 public String getDepartment(){return department;}
 public void setDepartment(String department){this.department=department;}
+@Override
+public String toString() {
+    return "Employee{id=" + id +
+           ", name='" + name + '\'' +
+           ", email='" + email + '\'' +
+           ", department='" + department + '\'' +
+           '}';
+}
 }
