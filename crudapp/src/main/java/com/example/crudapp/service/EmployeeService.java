@@ -2,15 +2,14 @@ package com.example.crudapp.service;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.crudapp.entity.Employee;
 import com.example.crudapp.repository.EmployeeRepository;
+import com.example.crudapp.exception.EmployeeNotFoundException;
 
 @Service
 public class EmployeeService {
@@ -56,9 +55,8 @@ public class EmployeeService {
 
                     logger.error("Employee not found with id: {}", id);
 
-                    return new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Employee not found with id : " + id
+                    return new EmployeeNotFoundException(
+                            "Employee not found with id : " + id
                     );
                 });
     }
@@ -72,9 +70,8 @@ public class EmployeeService {
 
                     logger.error("Employee not found for update: {}", emp.getId());
 
-                    return new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Employee not found with id : " + emp.getId()
+                    return new EmployeeNotFoundException(
+                            "Employee not found with id : " + emp.getId()
                     );
                 });
 
@@ -102,9 +99,8 @@ public class EmployeeService {
 
                     logger.error("Employee not found for delete: {}", id);
 
-                    return new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Employee not found with id : " + id
+                    return new EmployeeNotFoundException(
+                            "Employee not found with id : " + id
                     );
                 });
 
