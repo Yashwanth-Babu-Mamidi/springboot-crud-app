@@ -11,6 +11,11 @@ import com.example.crudapp.dto.AuthResponse;
 import com.example.crudapp.dto.LoginRequest;
 import com.example.crudapp.security.JwtUtil;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name="Authentication",
+description="JWT Authentication APIs")
 @RestController
 @RequestMapping("/auth")
 
@@ -28,6 +33,9 @@ public class AuthController {
 
     @PostMapping("/login")
 
+    @Operation(summary="Login user",
+    description="Authenticate user and generate JWT token")
+
     public AuthResponse login(@RequestBody LoginRequest request){
 
         authenticationManager.authenticate(
@@ -38,7 +46,7 @@ public class AuthController {
                 )
         );
 
-        String token =
+        String token=
                 jwtUtil.generateToken(request.getUsername());
 
         return new AuthResponse(token);

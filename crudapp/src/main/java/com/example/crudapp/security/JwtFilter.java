@@ -53,8 +53,12 @@ public class JwtFilter extends OncePerRequestFilter {
 
             token = authHeader.substring(7);
 
-            username =
-                    jwtUtil.extractUsername(token);
+            try{
+                username = jwtUtil.extractUsername(token);
+            }
+            catch(Exception e){
+                logger.error("Invalid JWT token");
+            }
         }
 
         if(username != null &&
