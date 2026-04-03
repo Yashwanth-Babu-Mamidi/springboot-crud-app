@@ -1,0 +1,39 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: "1"
+      author: "yash"
+
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: employee
+
+      changes:
+
+        - createTable:
+            tableName: employee
+
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+
+              - column:
+                  name: email
+                  type: VARCHAR(100)
+
+              - column:
+                  name: department
+                  type: VARCHAR(100)

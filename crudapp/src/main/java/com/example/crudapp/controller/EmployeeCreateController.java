@@ -1,5 +1,6 @@
 package com.example.crudapp.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +25,14 @@ public class EmployeeCreateController {
 
     @PostMapping
 
+    @PreAuthorize("hasRole('ADMIN')")
+
     @Operation(summary="Create employee",
     description="Creates a new employee record")
 
     @ApiResponse(responseCode="200",
     description="Employee created successfully")
+
     public Employee create(@RequestBody Employee emp){
 
         return service.save(emp);

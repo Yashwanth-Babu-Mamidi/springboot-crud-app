@@ -2,6 +2,7 @@ package com.example.crudapp.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,8 @@ public class EmployeeReadController {
     }
 
     @GetMapping
+    
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
 
     @Operation(summary="Get all employees",
     description="Returns list of all employees")
@@ -50,6 +53,8 @@ public class EmployeeReadController {
     }
 
     @GetMapping("/{id}")
+    
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     
     @Operation(summary="Get employee by ID",
     description="Fetch employee using employee ID")

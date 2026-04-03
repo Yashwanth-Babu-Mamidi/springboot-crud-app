@@ -1,36 +1,57 @@
 package com.example.crudapp.security;
 
-import java.util.Collections;
+import java.util.List;
 
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.example.crudapp.entity.User;
+import com.example.crudapp.repository.UserRepository;
 
 @Service
 
 public class CustomUserDetailsService
         implements UserDetailsService {
 
+    private UserRepository userRepository;
+
+    public CustomUserDetailsService(
+            UserRepository userRepository){
+
+        this.userRepository=userRepository;
+    }
+
     @Override
 
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
 
-        if(!username.equals("admin")){
+        User user =
+                userRepository
+                .findByUsername(username)
 
-            throw new UsernameNotFoundException(
-                    "User not found"
-            );
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(
+                                "User not found"
+                        ));
 
-        }
+        return new org.springframework.security.core.userdetails.User(
 
-        return new User(
-                "admin",
-                "$2a$10$.Hy4Ii40DOTM2okPt6ghqOt/9Sfky8jLedP.RLeeQr8ST60CFQHgC",
-                Collections.emptyList()
+                user.getUsername(),
+
+                user.getPassword(),
+
+                List.of(
+                	    new SimpleGrantedAuthority(
+                	        "ROLE_" + user.getRole()
+                	    )
+                	)
+
         );
+
     }
 
 }
