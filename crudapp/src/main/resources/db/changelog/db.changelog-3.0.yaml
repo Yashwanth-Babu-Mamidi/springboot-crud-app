@@ -1,0 +1,51 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: "2"
+      author: "yash"
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+
+  # ✅ ADD THIS BELOW (same indentation level)
+
+  - changeSet:
+      id: "3"
+      author: "yash"
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: password
+                  value: $2a$10$7QJ8p5EXZt8eRz8gkQe7CuJrWZb4Zl7r1vF6cF6zF1kF8pK7n6xG2
+              - column:
+                  name: role
+                  value: ROLE_ADMIN
